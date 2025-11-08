@@ -179,7 +179,7 @@
         <nav class="nav-links">
             <a href="#">Bozorga kirish</a>
             <a href="#">Sotuvchi bo‘lish</a>
-            <a href="#">Support</a>
+            <a href='{% url "support" %}'>Support</a>
         </nav>
     </header>
 
@@ -210,7 +210,7 @@
             <img src="https://cdn-icons-png.flaticon.com/512/6963/6963705.png" alt="Support">
             <h3>Yordam markazi</h3>
             <p>Muammolaringizni hal qilish uchun bizning support jamoamiz bilan bog‘laning.</p>
-            <button class="btn">Aloqa</button>
+            <button class="btn" onclick="window.location.href='{% url 'support' %}'">Aloqa</button>
         </div>
     </section>
 

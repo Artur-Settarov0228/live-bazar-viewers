@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yordam markazi - Live Bazar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #09ff00ff, #1eb700ff);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 70px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            transition: 0.3s;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0%;
+            height: 2px;
+            background-color: #007bff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        .contact-box {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .contact-box h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input, textarea {
+            padding: 12px 15px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0,123,255,0.3);
+        }
+
+        textarea {
+            resize: none;
+            height: 120px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🛍️ Live Bazar</div>
+        <nav class="nav-links">
+            <a href='{% url "home" %}'>Bosh sahifa</a>
+            <a href="#">Bozor</a>
+            <a href="#">Sotuvchi bo‘lish</a>
+            <a href="#">Support</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="contact-box">
+            <h2>📞 Yordam markazi</h2>
+            <p>Quyidagi formani to‘ldiring — biz siz bilan tez orada bog‘lanamiz!</p>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="ism" placeholder="Ismingiz" required>
+                <input type="tel" name="telefon" placeholder="Telefon raqamingiz" required>
+                <textarea name="xabar" placeholder="Xabaringizni yozing..." required></textarea>
+                <button type="submit">📩 Jo‘natish</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Live Bazar | Yordam xizmati</p>
+    </footer>
+</body>
+</html>
