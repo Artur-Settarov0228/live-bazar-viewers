@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sotuvchi Ro‘yxatdan O‘tish - Live Bazar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #09ff00ff, #1eb700ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-box {
+            background: rgba(255,255,255,0.95);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            width: 450px;
+        }
+
+        .register-box h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        input, select {
+            padding: 12px 15px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0,123,255,0.3);
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            color: #555;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .login-link a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <h2>🧍‍♂️ Sotuvchi Ro‘yxatdan O‘tish</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="first_name" placeholder="Ismingiz" required>
+            <input type="text" name="last_name" placeholder="Familiyangiz" required>
+            <input type="tel" name="phone_number" placeholder="Telefon raqamingiz" required>
+            <input type="email" name="email" placeholder="Email manzilingiz" required>
+            <input type="password" name="password" placeholder="Parol" required>
+            <input type="text" name="market_name" placeholder="Do‘kon nomi" required>
+
+            <select name="location" required>
+                <option value="" disabled selected>Joylashuvni tanlang</option>
+                <option value="toshkent">Toshkent</option>
+                <option value="fargona">Farg‘ona</option>
+                <option value="andijon">Andijon</option>
+                <option value="namangan">Namangan</option>
+                <option value="samarqand">Samarqand</option>
+                <option value="buxoro">Buxoro</option>
+                <option value="xorazm">Xorazm</option>
+                <option value="navoiy">Navoiy</option>
+                <option value="jizzax">Jizzax</option>
+                <option value="sirdaryo">Sirdaryo</option>
+                <option value="qashqadaryo">Qashqadaryo</option>
+                <option value="surxondaryo">Surxondaryo</option>
+            </select>
+
+            <select name="product_category" required>
+                <option value="" disabled selected>Mahsulot turini tanlang</option>
+                <option value="meva">Meva-sabzavotlar</option>
+                <option value="gosht">Go‘sht va parranda mahsulotlari</option>
+                <option value="sut">Sut va sut mahsulotlari</option>
+                <option value="non">Non va un mahsulotlari</option>
+                <option value="ichimlik">Ichimliklar</option>
+                <option value="shakar">Shakar va shirinliklar</option>
+                <option value="ziravor">Oziq-ovqat ziravorlari</option>
+                <option value="uy">Uy-ro‘zg‘or buyumlari</option>
+                <option value="texnika">Maishiy texnika</option>
+                <option value="kiyim">Kiyim-kechak</option>
+                <option value="gozallik">Go‘zallik va parvarish vositalari</option>
+                <option value="qurilish">Qurilish mollari</option>
+                <option value="avto">Avto ehtiyot qismlar</option>
+                <option value="elektronika">Elektronika</option>
+                <option value="hayvon">Hayvonlar uchun mahsulotlar</option>
+            </select>
+
+            <button type="submit">✅ Ro‘yxatdan o‘tish</button>
+        </form>
+
+        <div class="login-link">
+            <p>Allaqachon ro‘yxatdan o‘tganmisiz? <a href='{% url "login" %}'>Kirish</a></p>
+        </div>
+
+        <p class="note">Ro‘yxatdan o‘tganingizdan so‘ng, siz mahsulot qo‘shishingiz mumkin.</p>
+    </div>
+</body>
+</html>

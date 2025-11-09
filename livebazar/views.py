@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
+from .models import Costumer
 from dotenv import load_dotenv
 import requests
 import os
@@ -34,6 +35,39 @@ def support(request:HttpRequest)->HttpResponse:
         return render(request=request, template_name="support.html")
     
     return render(request=request, template_name="support.html")
+
+def register_seller(request: HttpRequest)->HttpResponse:
+    if request.method == "POST":
+        result = Costumer(
+            first_name = request.POST.get("first_name"),
+            last_name = request.POST.get("last_name"),
+            phone_number = request.POST.get("phone_number"),
+            email = request.POST.get("email"),
+            password = request.POST.get("password"),
+            market_name = request.POST.get("market_name"),
+            location = request.POST.get("location"),
+            product_category = request.POST.get("product_category")
+        )
+
+        result.save()
+        return redirect("home")
+    return render(request=request, template_name="register_seller.html")
+
+
+def login(request:HttpRequest)->HttpResponse:
+    if request.method =="POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        user = Costumer.objects.filter(email=email).first()
+        if not user:
+            return render(request, "login.html")
+        elif user.password == password:
+            return render(request=request, template_name="seller_dashboard.html")
+    return render(request=request, template_name="login.html")
+
+def seller_dashboard(request: HttpRequest)->HttpResponse:
+    return render(request=request, template_name="seller_dashboard.html")
 
 
    

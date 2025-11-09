@@ -178,7 +178,7 @@
         <div class="logo">🛍️ Live Bazar</div>
         <nav class="nav-links">
             <a href="#">Bozorga kirish</a>
-            <a href="#">Sotuvchi bo‘lish</a>
+            <a href='{% url "register_seller" %}'>Sotuvchi bo‘lish</a>
             <a href='{% url "support" %}'>Support</a>
         </nav>
     </header>
@@ -203,7 +203,7 @@
             <img src="https://cdn-icons-png.flaticon.com/512/4862/4862440.png" alt="Seller">
             <h3>Sotuvchi bo‘lish</h3>
             <p>O‘zingizning mahsulotlaringizni joylashtiring va minglab xaridorlarga yeting!</p>
-            <button class="btn">Ro‘yxatdan o‘tish</button>
+            <button class="btn" onclick="window.location.href='{% url 'register_seller' %}'">Ro‘yxatdan o‘tish</button>
         </div>
 
         <div class="card">
