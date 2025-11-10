@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.decorators import login_required
+from markets.models import Product
 from .models import Costumer
 from dotenv import load_dotenv
 import requests
@@ -55,19 +56,24 @@ def register_seller(request: HttpRequest)->HttpResponse:
     return render(request=request, template_name="register_seller.html")
 
 
-def login(request:HttpRequest)->HttpResponse:
-    if request.method =="POST":
+def login(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
 
-        user = Costumer.objects.filter(email=email).first()
-        if not user:
-            return render(request, "login.html")
-        elif user.password == password:
-            return render(request=request, template_name="seller_dashboard.html")
-    return render(request=request, template_name="login.html")
+        user = Costumer.objects.filter(email=email, password=password).first()
 
-@login_required
+        if user:
+            request.session["email"] = user.email
+            request.session["costumer_id"] = user.id
+
+            return redirect("seller_dashboard")
+        else:
+            return HttpResponse("Email yoki parol notogri")
+
+    return render(request, "login.html")
+
+
 def seller_dashboard(request: HttpRequest)->HttpResponse:
     seller = request.user.costumer
     products = Product.objects.filter(seller=seller)

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yangi Mahsulot Qo'shish — Live Bazar</title>
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #09ff00, #1eb700);
+    color: #1e293b;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(7, 23, 93, 0.12);
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 24px;
+    color: #0f1724;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="file"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.2);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .checkbox {
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-checkbox {
+    position: relative;
+    padding-left: 32px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 15px;
+    color: #1e293b;
+  }
+
+  .custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .custom-checkbox .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    transition: all 0.3s ease;
+  }
+
+  .custom-checkbox input:checked ~ .checkmark {
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+    border-color: #00b09b;
+  }
+
+  .custom-checkbox .checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .custom-checkbox input:checked ~ .checkmark::after {
+    display: block;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  button {
+    padding: 14px 22px;
+    background: #0ea5e9;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background: #0284c7;
+  }
+
+  @media (max-width: 500px) {
+    .container {
+      padding: 20px;
+      margin: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Yangi Mahsulot Qo'shish</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div>
+        <label for="name">Mahsulot nomi</label>
+        <input type="text" id="name" name="name" placeholder="Mahsulot nomi" required>
+      </div>
+
+      <div>
+        <label for="description">Mahsulot tavsifi</label>
+        <textarea id="description" name="description" placeholder="Mahsulot haqida batafsil" required></textarea>
+      </div>
+
+      <div>
+        <label for="category">Kategoriya</label>
+        <select id="category" name="category" required>
+          <option value="">-- Tanlang --</option>
+          <option value="meva">Meva-sabzavotlar</option>
+          <option value="gosht">Go‘sht va parranda mahsulotlari</option>
+          <option value="sut">Sut va sut mahsulotlari</option>
+          <option value="non">Non va un mahsulotlari</option>
+          <option value="ichimlik">Ichimliklar</option>
+          <option value="shakar">Shakar va shirinliklar</option>
+          <option value="ziravor">Oziq-ovqat ziravorlari</option>
+          <option value="uy">Uy-ro‘zg‘or buyumlari</option>
+          <option value="texnika">Maishiy texnika</option>
+          <option value="kiyim">Kiyim-kechak</option>
+          <option value="gozallik">Go‘zallik va parvarish vositalari</option>
+          <option value="qurilish">Qurilish mollari</option>
+          <option value="avto">Avto ehtiyot qismlar</option>
+          <option value="elektronika">Elektronika</option>
+          <option value="hayvon">Hayvonlar uchun mahsulotlar</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="price">Narxi (so‘mda)</label>
+        <input type="number" id="price" name="price" min="0" step="100" required>
+      </div>
+
+      <div>
+        <label for="discount">Chegirma (%)</label>
+        <input type="number" id="discount" name="discount" min="0" max="100" step="1">
+      </div>
+
+      <div>
+        <label for="quantity">Mavjud soni</label>
+        <input type="number" id="quantity" name="quantity" min="1" required>
+      </div>
+
+      <div>
+        <label for="image">Rasm yuklash</label>
+        <input type="file" id="image" name="image" accept="image/*">
+      </div>
+
+      <div>
+        <label for="location">Joylashuv</label>
+        <input type="text" id="location" name="location" placeholder="Masalan: Samarqand bozor" required>
+      </div>
+
+      <div class="checkbox">
+        <label class="custom-checkbox">
+          <input type="checkbox" name="is_available" checked>
+          Sotuvda mavjud
+          <span class="checkmark"></span>
+        </label>
+      </div>
+
+      <button type="submit">Mahsulotni qo'shish</button>
+    </form>
+  </div>
+</body>
+</html>
